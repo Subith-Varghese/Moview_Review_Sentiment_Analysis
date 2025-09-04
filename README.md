@@ -7,13 +7,13 @@ An end-to-end deep learning project to analyze the sentiment of IMDb movie revie
 This project performs sentiment analysis on movie reviews from the IMDb dataset.
 It classifies user reviews into Positive, Neutral, or Negative, assigns a star rating (0.5⭐ to 5⭐), and provides a probability score for prediction confidence.
 
+![Movie Review Sentiment Analysis](https://github.com/Subith-Varghese/Moview_Review_Sentiment_Analysis/blob/f3e0d61795752d5c4a09b52507589565ad107025/Screenshot%202025-09-04%20202555.png)
+
 The solution includes:
 - Data download, preprocessing, and cleaning
 - Word2Vec embeddings + LSTM-based deep learning
 - Model training, evaluation, and deployment
 - RESTful Flask web app for real-time predictions
-
-![Movie Review Sentiment Analysis](https://github.com/Subith-Varghese/Moview_Review_Sentiment_Analysis/blob/f3e0d61795752d5c4a09b52507589565ad107025/Screenshot%202025-09-04%20202555.png)
 
 
 ---
