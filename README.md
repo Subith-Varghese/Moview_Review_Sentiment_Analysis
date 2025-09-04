@@ -114,7 +114,7 @@ Two options available:
 ## Installation & Setup
 ```
 # Clone the repository
-git clone https://github.com/Subith-Varghese/netflix-recommendation-system.git
+git clone https://github.com/Subith-Varghese/Moview_Review_Sentiment_Analysis.git
 
 # Navigate to the project directory
 cd movie_review_sentiment_analysis
@@ -141,6 +141,18 @@ python -m src.pipeline.predict_pipeline
 python app.py
 ```
 Visit → http://127.0.0.1:5000/
+
+### Example Prediction
+
+**Input:** "This movie was absolutely fantastic! Brilliant acting and storyline."
+
+### Output:
+```
+Sentiment → Positive ✅
+Probability → 0.93
+Rating → 4.5 / 5
+Stars → ★★★★⯪
+```
 
 ## Dataset Details
 
