@@ -1,59 +1,119 @@
-# Movie Review Sentiment Analysis — Class-Based MLOps
+# 🎬 Movie Review Sentiment Analysis
 
-A production-ready, **class-based** project mirroring your `face_mask_detector` structure, adapted for NLP (IMDB reviews) with **LSTM + Word2Vec**.
+An end-to-end deep learning project to analyze the sentiment of IMDb movie reviews using LSTM, Word2Vec embeddings, and a Flask web app.
 
-## Structure
+## Overview
+
+This project performs sentiment analysis on movie reviews from the IMDb dataset.
+It classifies user reviews into Positive, Neutral, or Negative, assigns a star rating (0.5⭐ to 5⭐), and provides a probability score for prediction confidence.
+
+The solution includes:
+- Data download, preprocessing, and cleaning
+- Word2Vec embeddings + LSTM-based deep learning
+- Model training, evaluation, and deployment
+- RESTful Flask web app for real-time predictions
+
+---
+## 📂 Project Structure
+
 ```
-movie_review_sentiment_mlopstyle_cb/
-│── data/                      # Put IMDB Dataset.csv or use downloader
-│── models/                    # Saved models, tokenizer, embeddings, logs
-│── notebooks/                 # Optional notebooks
-│── src/
-│   ├── components/
-│   │   ├── data_downloader.py       # Download from Kaggle/URL (opendatasets)
-│   │   ├── data_ingestion.py        # Class: load + optional split
-│   │   ├── data_preprocessing.py    # Class: clean + label encode
-│   │   ├── embeddings_trainer.py    # Class: train/save Word2Vec
-│   │   ├── model_builder.py         # Class: build LSTM from embedding matrix
-│   │   ├── model_trainer.py         # Class: tokenizer, sequences, callbacks, train
-│   │   └── predictor.py             # Class: load artifacts, predict text
-│   │
-│   ├── pipeline/
-│   │   ├── train_pipeline.py        # Orchestrates full pipeline (classes)
-│   │   └── predict_pipeline.py      # CLI to predict one review
-│   │
-│   └── utils/
-│       ├── common.py                # read_config, save/load joblib, ensure_dir
-│       └── logger.py                # module-level logger + get_logger()
+movie_review_sentiment_analysis/
 │
-│── templates/
-│   └── home.html                    # Simple Flask UI
+├── app.py                         # Flask web app entry point
+├── templates/
+│   └── home.html                 # Frontend template for Flask app
 │
-│── app.py                           # Flask app entry
-│── config.yaml                      # Paths + hyperparameters
-│── requirements.txt                 # Dependencies
-│── README.md
-```
-## Quickstart
-1) Option A — **Auto download** (needs Kaggle API configured): set `data.dataset_url` in `config.yaml`, then run training (downloader runs first).  
-2) Option B — **Manual**: put `IMDB Dataset.csv` under `data/`.
+├── src/
+│   ├── components/               # Core ML components
+│   │   ├── data_downloader.py    # Downloads IMDb dataset
+│   │   ├── data_preprocessing.py # Cleans, lemmatizes, encodes labels
+│   │   ├── data_splitter.py      # Splits train/test data
+│   │   ├── embeddings_trainer.py # Tokenizer + Word2Vec embeddings
+│   │   ├── model_trainer.py      # Trains LSTM model
+│   │   ├── predictor.py          # Loads model & predicts sentiment
+│   │   ├── evaluate_model.py     # Generates classification reports & confusion matrix
+│   │
+│   ├── pipeline/                 # Training & prediction pipelines
+│   │   ├── train_pipeline.py     # Orchestrates end-to-end training
+│   │   └── predict_pipeline.py   # CLI-based prediction pipeline
+│   │
+│   ├── utils/
+│   │   └── logger.py            # Centralized logging utility
+│
+├── models/                      # Saved models, tokenizers, label encoders
+├── data/
+│   ├── imdb-dataset-of-50k-movie-reviews/
+│   │   └── IMDB Dataset.csv
+│   └── processed/
+│       ├── train.csv
+│       ├── test.csv
+│
+├── reports/
+│   └── confusion_matrix.png     # Generated after evaluation
+│
+├── requirements.txt             # Required Python dependencies
+└── README.md                   # Project documentation
 
-### Install
-```bash
-pip install -r requirements.txt
 ```
 
-### Train
-```bash
-python -m src.pipeline.train_pipeline
-```
+## 🚀 Project Workflow
+### 1. Data Download & Preprocessing
 
-### Predict (CLI)
-```bash
-python -m src.pipeline.predict_pipeline --text "This was a surprisingly great movie!"
-```
+- Download IMDb dataset using opendatasets
+- Handle missing values & duplicates
+- Expand contractions, remove HTML, lowercase text
+- Lemmatization + stopword removal (keeping negations like not, never)
+- Encode sentiment labels (positive=1, negative=0)
 
-### Run Web App
-```bash
-python app.py
+### 2. Dataset Splitting
+- Split into train (80%) & test (20%) sets
+
+### 3. Embeddings Training
+
+- Tokenize text & convert to sequences
+- Train Word2Vec embeddings using Gensim
+- Pad sequences for LSTM compatibility
+
+### 4. LSTM Model Training
+
+- Architecture:
+  - Embedding Layer → LSTM Layer → Dense Output (Sigmoid)
+
+- Loss: binary_crossentropy
+- Optimizer: Adam
+- Early stopping, model checkpoints, and LR scheduling used
+- Best model saved as:
+
 ```
+models/best_lstm_model.h5
+```
+### 5. Model Evaluation
+- Evaluate on test set
+- Generate classification report & confusion matrix
+- Output stored in:
+
+``` reports/confusion_matrix.png ```
+
+### 6. Prediction
+
+Two options available:
+- ### CLI Pipeline
+``` python -m src.pipeline.predict_pipeline ```
+
+- ### Flask Web App
+
+``` python app.py```
+
+- ### Then open:
+
+``` http://127.0.0.1:5000/```
+
+## Installation & Setup
+
+## Dataset Details
+
+- Source: IMDb Movie Reviews Dataset
+- Size: 50,000 movie reviews
+- Columns:
+  - review: Text of the review
+  - sentiment: Positive / Negative
