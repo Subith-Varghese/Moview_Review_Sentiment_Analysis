@@ -13,8 +13,6 @@ The solution includes:
 - Model training, evaluation, and deployment
 - RESTful Flask web app for real-time predictions
 
-## 📸 Project Screenshot  
-
 ![Movie Review Sentiment Analysis](https://github.com/Subith-Varghese/Moview_Review_Sentiment_Analysis/blob/f3e0d61795752d5c4a09b52507589565ad107025/Screenshot%202025-09-04%20202555.png)
 
 
