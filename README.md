@@ -112,6 +112,35 @@ Two options available:
 ``` http://127.0.0.1:5000/```
 
 ## Installation & Setup
+```
+# Clone the repository
+git clone https://github.com/Subith-Varghese/netflix-recommendation-system.git
+
+# Navigate to the project directory
+cd movie_review_sentiment_analysis
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+venv\Scripts\activate  
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the training pipeline
+python -m src.pipeline.train_pipeline
+
+# Evaluate the Model
+python -m src.components.evaluate_model
+
+# Run Prediction
+python -m src.pipeline.predict_pipeline
+
+# Run Flask App
+python app.py
+```
+Visit → http://127.0.0.1:5000/
 
 ## Dataset Details
 
